@@ -3,7 +3,7 @@
 FROM node:18.17.0
 
 # Set working directory inside the container
-WORKDIR /burgan-task-api/src
+WORKDIR /movies-service/src
 
 # Copy package.json and package-lock.json (if available) to work directory
 COPY package*.json ./
