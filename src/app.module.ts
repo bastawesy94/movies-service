@@ -9,6 +9,7 @@ import { join } from 'path';
 import * as dotenv from 'dotenv';
 import { SettingsModule } from './settings/settings.module';
 import { RedisService } from './utils/redis.service';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 dotenv.config({
   path: path.resolve(__dirname, `../.env.${process.env.NODE_ENV}`),
@@ -27,6 +28,10 @@ console.log("############ DB URL:", process.env.DATABASE_URL);
       synchronize: true,
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
     }),
+    ThrottlerModule.forRoot([{
+      ttl: 60,
+      limit: 10,
+    }]),
   ],
   controllers: [AppController],
   providers: [AppService, RedisService],
